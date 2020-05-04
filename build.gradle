@@ -1,0 +1,36 @@
+plugins {
+    id 'checkstyle'
+}
+
+apply plugin: 'java'
+//apply plugin: 'jacoco'
+
+task(runProducer, dependsOn: 'classes', type: JavaExec) {
+    main = "aniagg.ProducerView"
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}
+
+task(runWatcher, dependsOn: 'classes', type: JavaExec) {
+    main = "aniagg.WatcherView"
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation('junit:junit:4.13')
+    implementation 'com.opencsv:opencsv:4.6'
+    implementation "mysql:mysql-connector-java:8.0.13"
+    //implementation 'com.google.firebase:firebase-admin:6.12.1'
+}
+
+checkstyle {
+    toolVersion = "8.26"
+}
